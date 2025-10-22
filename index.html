@@ -1,145 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title>Goaltrix</title>
 <style>
 body, html { margin: 0; padding: 0; height: 100%; font-family: Arial, sans-serif; }
-.sidebar { width: 220px; background-color: #051c3e; color: #fff; position: fixed; top: 0; left: 0; bottom: 0; padding-top: 20px; }
+#loginPage, #appPage { height: 100%; }
+.login-container { display: flex; height: 100%; }
+.login-left { flex: 1; background: #0e0e0e; color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; background-image: radial-gradient(circle at top left, #444 0%, #000 100%); }
+.login-left h1 { font-size: 2.5em; margin-bottom: 20px; }
+.login-left p { font-size: 1.2em; }
+.login-right { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #fff; }
+.login-form { width: 80%; max-width: 400px; }
+.login-form h2 { margin-bottom: 20px; }
+.login-form input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; }
+.login-form button { width: 100%; padding: 12px; background: #007acc; color: #fff; border: none; border-radius: 4px; font-size: 1em; cursor: pointer; }
+.login-form button:hover { background: #005fa3; }
+.login-form .link { text-align: center; margin-top: 10px; }
+/* Sidebar and header for app */
+.sidebar { width: 220px; background-color: #051c39; position: fixed; top: 0; left: 0; bottom: 0; padding-top: 20px; color: #fff; }
 .sidebar .logo { font-size: 1.5em; font-weight: bold; padding: 0 20px 20px; }
-.sidebar ul { list-style-type: none; margin: 0; padding: 0; }
+.sidebar ul { list-style: none; margin: 0; padding: 0; }
 .sidebar li { padding: 12px 20px; cursor: pointer; }
-.sidebar li:hover { background-color: #0c2b56; }
-
-.header { height: 60px; background-color: #0c2b56; margin-left: 220px; display: flex; align-items: center; padding: 0 20px; color: white; }
+.sidebar li:hover { background-color: #0c285c; }
+.header { height: 60px; background-color: #0c285c; margin-left: 220px; display: flex; align-items: center; padding: 0 20px; color: white; }
 .header input { margin-left: 20px; padding: 6px 10px; border-radius: 4px; border: none; width: 300px; }
-
 .content { margin-left: 220px; padding: 20px; margin-top: 60px; }
-
-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+td, th { border: 1px solid #ccc; padding: 8px; text-align: left; }
 th { background-color: #f2f2f2; }
-
-.version { position: fixed; bottom: 10px; right: 10px; font-size: 0.8em; color: #888; }
+.version { position: fixed; bottom: 10px; right: 10px; font-size: 14px; color: #888; }
 </style>
 </head>
 <body>
-    <div class="sidebar">
-        <div class="logo">Goaltrix</div>
-        <ul>
-            <li>Goals</li>
-            <li>Chats</li>
-            <li>Contacts</li>
-            <li>Settings</li>
-        </ul>
+<div id="loginPage">
+  <div class="login-container">
+    <div class="login-left">
+      <h1>Welcome to Goaltrix</h1>
+      <p>Connect, Collaborate, and Achieve with Confidence</p>
     </div>
-    <div class="header">
-        <span>Goaltrix</span>
-        <input type="text" placeholder="Search" disabled>
+    <div class="login-right">
+      <div class="login-form">
+        <h2>Sign In / Create Your Account</h2>
+        <input type="email" id="email" placeholder="Email" />
+        <input type="password" id="password" placeholder="Password" />
+        <button onclick="login()">Log In</button>
+        <div class="link">Don't have an account? <a href="#">Create an account</a></div>
+      </div>
     </div>
-    <div class="content">
-        <h1>Step 2: Interactive Goals</h1>
-        <h2>Add a New Goal</h2>
-        <label for="projectInput">Project Name:</label>
-        <input type="text" id="projectInput" placeholder="Project name">
-        <label for="goalInput">Goal Description:</label>
-        <input type="text" id="goalInput" placeholder="Enter goal description">
-        <button onclick="addGoal()">Add Goal</button>
-
-        <h2>Goals</h2>
-        <table id="goalsTable">
-            <thead>
-                <tr>
-                    <th>Project</th>
-                    <th>Goal</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="goalsTableBody">
-                <tr>
-                    <td>Goaltrix</td>
-                    <td>Create and put the web page into production</td>
-                    <td>Completed</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h2>Tasks</h2>
-        <table id="tasksTable">
-            <thead>
-                <tr>
-                    <th>Project</th>
-                    <th>Goal</th>
-                    <th>Task</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="tasksTableBody">
-                <tr>
-                    <td>Goaltrix</td>
-                    <td>Create and put the web page into production</td>
-                    <td>Register domain name</td>
-                    <td>Completed</td>
-                </tr>
-                <tr>
-                    <td>Goaltrix</td>
-                    <td>Create and put the web page into production</td>
-                    <td>Create repository and add initial files</td>
-                    <td>Completed</td>
-                </tr>
-                <tr>
-                    <td>Goaltrix</td>
-                    <td>Create and put the web page into production</td>
-                    <td>Build initial web page listing goals and tasks</td>
-                    <td>Completed</td>
-                </tr>
-                <tr>
-                    <td>Goaltrix</td>
-                    <td>Create and put the web page into production</td>
-                    <td>Deploy site to Netlify and configure custom domain</td>
-                    <td>Completed</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="version">v2.0</div>
-    <script>
-        function generateTasks(goal) {
-            return [
-                `Define the goal: ${goal}`,
-                'Break down the goal into actionable tasks',
-                'Assign tasks to responsible persons',
-                'Set deadlines for each task',
-                'Review and adjust the process as needed'
-            ];
-        }
-        function addGoal() {
-            const projectInput = document.getElementById('projectInput');
-            const goalInput = document.getElementById('goalInput');
-            const project = projectInput.value.trim();
-            const goal = goalInput.value.trim();
-            if (!project || !goal) {
-                alert('Please enter a project name and goal.');
-                return;
-            }
-            const goalsTableBody = document.getElementById('goalsTableBody');
-            const goalRow = goalsTableBody.insertRow();
-            goalRow.insertCell(0).textContent = project;
-            goalRow.insertCell(1).textContent = goal;
-            goalRow.insertCell(2).textContent = 'In Progress';
-
-            const tasks = generateTasks(goal);
-            const tasksTableBody = document.getElementById('tasksTableBody');
-            tasks.forEach(task => {
-                const row = tasksTableBody.insertRow();
-                row.insertCell(0).textContent = project;
-                row.insertCell(1).textContent = goal;
-                row.insertCell(2).textContent = task;
-                row.insertCell(3).textContent = 'Pending';
-            });
-            projectInput.value = '';
-            goalInput.value = '';
-        }
-    </script>
+  </div>
+</div>
+<div id="appPage" style="display:none;">
+  <div class="sidebar">
+    <div class="logo">Goaltrix</div>
+    <ul>
+      <li>Goals</li>
+      <li>Chats</li>
+      <li>Contacts</li>
+      <li>Settings</li>
+    </ul>
+  </div>
+  <div class="header">
+    <span>Goaltrix Dashboard</span>
+    <input type="text" placeholder="Search (coming soon)" disabled />
+  </div>
+  <div class="content">
+    <h1>Step 2 Complete</h1>
+    <h2>Add a New Goal</h2>
+    <label>Project: <input type="text" id="projectInput" /></label>
+    <label style="margin-left:10px;">Goal: <input type="text" id="goalInput" /></label>
+    <button onclick="addGoal()">Add Goal</button>
+    <h2>Goals</h2>
+    <table id="goalsTable">
+      <thead><tr><th>Project</th><th>Goal</th><th>Status</th></tr></thead>
+      <tbody id="goalsTableBody">
+        <tr><td>Goaltrix</td><td>Create and put the web page into production</td><td>Completed</td></tr>
+      </tbody>
+    </table>
+    <h2>Tasks</h2>
+    <table id="tasksTable">
+      <thead><tr><th>Project</th><th>Goal</th><th>Task</th><th>Status</th></tr></thead>
+      <tbody id="tasksTableBody">
+        <tr><td>Goaltrix</td><td>Create and put the web page into production</td><td>Register the domain goaltrix.com</td><td>Completed</td></tr>
+        <tr><td>Goaltrix</td><td>Create and put the web page into production</td><td>Create GitHub repository and add files</td><td>Completed</td></tr>
+        <tr><td>Goaltrix</td><td>Create and put the web page into production</td><td>Build and deploy the page via Netlify</td><td>Completed</td></tr>
+        <tr><td>Goaltrix</td><td>Create and put the web page into production</td><td>Connect custom domain</td><td>Completed</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="version">v2.1</div>
+<script>
+function login() {
+  document.getElementById('loginPage').style.display = 'none';
+  document.getElementById('appPage').style.display = 'block';
+}
+function generateTasks(goal) {
+  return [
+    'Define the goal: ' + goal,
+    'Break down the goal into smaller tasks',
+    'Identify resources needed',
+    'Set deadlines for each task',
+    'Review and adjust tasks as necessary'
+  ];
+}
+function addGoal() {
+  const project = document.getElementById('projectInput').value.trim();
+  const goal = document.getElementById('goalInput').value.trim();
+  if (!project || !goal) {
+    alert('Please enter both project and goal.');
+    return;
+  }
+  // Add to goals table
+  const goalsBody = document.getElementById('goalsTableBody');
+  const goalRow = document.createElement('tr');
+  goalRow.innerHTML = '<td>' + project + '</td><td>' + goal + '</td><td>In Progress</td>';
+  goalsBody.appendChild(goalRow);
+  // Generate tasks and add to tasks table
+  const tasks = generateTasks(goal);
+  const tasksBody = document.getElementById('tasksTableBody');
+  tasks.forEach(task => {
+    const row = document.createElement('tr');
+    row.innerHTML = '<td>' + project + '</td><td>' + goal + '</td><td>' + task + '</td><td>Pending</td>';
+    tasksBody.appendChild(row);
+  });
+  document.getElementById('projectInput').value = '';
+  document.getElementById('goalInput').value = '';
+}
+</script>
 </body>
 </html>
